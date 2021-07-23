@@ -15,6 +15,12 @@ form.addEventListener("submit", function (event) {
 
 })
 
+function clear_page() {
+    console.log("Clean")
+}
+
+clear_page()
+
 function draw_category() {
     let allCategories = [
         "Alquiler", "Comida", "Diversion", "Antojo", "Gasto", "Transporte"
