@@ -47,6 +47,8 @@ function darkTheme(status) {
 
 function draw_category() {
   let allCategories = [
+    "Ahorros",
+    "Prestamo",
     "Alquiler",
     "Comida",
     "Diversion",
@@ -94,10 +96,24 @@ document.addEventListener("DOMContentLoaded", function (event) {
   darkTheme(localStorage.getItem("DarkTheme"));
   draw_category();
   let transactionObjArr = JSON.parse(localStorage.getItem("transactionData"));
+  showTotalAmount();
   transactionObjArr.forEach(function (arrayElement) {
     insertRowInTransactionTable(arrayElement);
   });
 });
+
+function showTotalAmount() {
+  let transactionObjArr = JSON.parse(localStorage.getItem("transactionData"));
+  let amount = 0;
+  transactionObjArr.forEach((transaction) => {
+    if (transaction.transactionType === "Ingreso") {
+      amount += parseInt(transaction.transactionAmount);
+    } else {
+      amount -= parseInt(transaction.transactionAmount);
+    }
+  });
+  document.getElementById("amount").innerText = amount;
+}
 
 function getNewTransactionId() {
   let lastTransactionId = localStorage.getItem("lastTransactionId") || "-1";
@@ -167,6 +183,7 @@ function deleteTransactionObj(transactionId) {
   transactionObjArr.splice(transactionIndexInArray, 1);
   let transactionArrayJSON = JSON.stringify(transactionObjArr);
   localStorage.setItem("transactionData", transactionArrayJSON);
+  showTotalAmount();
 }
 
 function saveTransactionObj(transactionObj) {
@@ -177,4 +194,5 @@ function saveTransactionObj(transactionObj) {
   let transactionArrayJSON = JSON.stringify(myTransactionArray);
   //Guardo mi array de transaccion en formato JSON en el local storage
   localStorage.setItem("transactionData", transactionArrayJSON);
+  showTotalAmount();
 }
