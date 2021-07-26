@@ -27,12 +27,16 @@ function darkTheme(status) {
   const description = document.getElementById("transactionDescription");
   const amount = document.getElementById("transactionAmount");
   if (status === "enable") {
+    localStorage.setItem("DarkTheme", "enable");
+    document.querySelector("input").checked = true;
     document.body.classList.add("white-text");
     description.classList.add("white-text");
     amount.classList.add("white-text");
     document.body.classList.add("grey");
     document.body.classList.add("darken-3");
   } else {
+    localStorage.setItem("DarkTheme", "disable");
+    document.querySelector("input").checked = false;
     document.body.classList.remove("white-text");
     description.classList.remove("white-text");
     amount.classList.remove("white-text");
@@ -87,6 +91,7 @@ function isValidTransactionForm(transactionObj) {
 }
 
 document.addEventListener("DOMContentLoaded", function (event) {
+  darkTheme(localStorage.getItem("DarkTheme"));
   draw_category();
   let transactionObjArr = JSON.parse(localStorage.getItem("transactionData"));
   transactionObjArr.forEach(function (arrayElement) {
