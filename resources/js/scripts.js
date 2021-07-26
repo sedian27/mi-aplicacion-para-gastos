@@ -16,22 +16,30 @@ form.addEventListener("submit", function (event) {
 });
 
 changeTheme.onchange = (e) => {
+  if (!document.body.classList.contains("grey")) {
+    darkTheme("enable");
+  } else {
+    darkTheme("disable");
+  }
+};
+
+function darkTheme(status) {
   const description = document.getElementById("transactionDescription");
   const amount = document.getElementById("transactionAmount");
-  if (document.body.classList.contains("grey")) {
-    document.body.classList.remove("white-text");
-    description.classList.remove("white-text");
-    amount.classList.remove("white-text");
-    document.body.classList.remove("grey");
-    document.body.classList.remove("darken-3");
-  } else {
+  if (status === "enable") {
     document.body.classList.add("white-text");
     description.classList.add("white-text");
     amount.classList.add("white-text");
     document.body.classList.add("grey");
     document.body.classList.add("darken-3");
+  } else {
+    document.body.classList.remove("white-text");
+    description.classList.remove("white-text");
+    amount.classList.remove("white-text");
+    document.body.classList.remove("grey");
+    document.body.classList.remove("darken-3");
   }
-};
+}
 
 function draw_category() {
   let allCategories = [
